@@ -8,14 +8,14 @@ vector potential.
 
   -Laplace(A_z) = mu_0 * J_z
 
-  
+
 """
 
 
 from __future__ import print_function # import the print functions
 from fenics import * # import fenics functions
 from mshr import * # import mshr functions
-from math import sin, cos, pi # import sin, cos, and pi 
+from math import sin, cos, pi # import sin, cos, and pi
 import matplotlib.pyplot as plt
 
 
@@ -40,7 +40,7 @@ angles_S = [(i + 0.5)*2*pi/n for i in range(n)] # define an array of southern an
 
 
 # define circle of wires for each northern angle
-wires_N = [Circle(Point(c_1*cos(v), c_1*sin(v)), r) for v in angles_N] 
+wires_N = [Circle(Point(c_1*cos(v), c_1*sin(v)), r) for v in angles_N]
 
 
 # define circle of wires for each southern angle
@@ -77,7 +77,7 @@ dx = Measure('dx', domain=mesh, subdomain_data=markers) # Redefine integration m
 
 
 # Define northern current densities +1 A
-J_N = Constant(1.0) 
+J_N = Constant(1.0)
 # Define southern current densities -1 A
 J_S = Constant(-1.0)
 
