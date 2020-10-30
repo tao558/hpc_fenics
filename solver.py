@@ -68,19 +68,20 @@ solve(a == L, A_z, bc) # Calculate potential by solving equation and store in A_
 W = VectorFunctionSpace(mesh, 'P', 1) # Result vector
 B = project(as_vector((A_z.dx(1), -A_z.dx(0))), W) # Compute curl
 
-if MPI.rank(MPI.comm_world) == 0:
-    print("Got here")
-    # Plot solution
-    plot(A_z) # Plot of the z-component Az of the magnetic vector potential.
-    plot(B) # Plot of the magnetic field B in the xy-plane.
+# if MPI.rank(MPI.comm_world) == 0:
+#     print("Got here")
+#     # Plot solution
+#     plot(A_z) # Plot of the z-component Az of the magnetic vector potential.
+#     plot(B) # Plot of the magnetic field B in the xy-plane.
 
-    # Hold plot
-    # plt.show()
+#     # Hold plot
+#     # plt.show()
 
 # Save solution to file
-vtkfile_A_z = File('magnetostatics/potential.pvd') # Create file for potential
-vtkfile_B = File('magnetostatics/field.pvd') # Create file for magnetic field
-
-vtkfile_A_z << A_z # Write out potential
-vtkfile_B << B # Write out magnetic field
+vtkfile_A_z = XDMFFile(MPI.comm_world, 'magnetostatics/potential.xdmf') # Create file for potential
+vtkfile_B = XDMFFile(MPI.comm_world,'magnetostatics/field.xdmf') # Create file for magnetic field
+vtkfile_A_z.write(A_z, 0)
+vtkfile_B.write(B,0)
+# vtkfile_A_z << A_z # Write out potential
+# vtkfile_B << B # Write out magnetic field
 
